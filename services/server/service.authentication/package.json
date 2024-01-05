@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "@bhotel/interfaces": "file:./../../../packages/package.interfaces",
     "@trpc/client": "^10.45.0",
     "@trpc/server": "^10.45.0",
     "jest": "^29.7.0",

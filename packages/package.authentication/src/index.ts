@@ -25,7 +25,12 @@ export const mainRouter = (routerData: TRouterData) =>
 					[login, password]
 				)
 
-				const userData: IUserPayload = response.rows
+				const userData: IUserPayload = {
+					uid: response.rows[0],
+					login: response.rows[1],
+					email: response.rows[2],
+					password: response.rows[3]
+				}
 
 				client.end()
 
@@ -46,4 +51,5 @@ export const mainRouter = (routerData: TRouterData) =>
 			})
 	})
 
+export { Token } from './utils'
 export type AuthenticateTRPCRouter = typeof mainRouter

@@ -1,27 +1,34 @@
-import { IUserPayload } from "@bhotel/interfaces"
+import { IUserPayload } from '@bhotel/interfaces'
 import jwt from 'jsonwebtoken'
 
 export class Token {
+	private readonly payload: IUserPayload
+	private readonly secretKey: string
+    private accessToken: string = ''
+    private refreshToken: string = ''
 
-    private readonly payload: IUserPayload
-    private readonly secretKey: string
-    private readonly publicKey: string
+	constructor(payload: IUserPayload, secretKey: string) {
+		this.payload = payload
+		this.secretKey = secretKey
+	}
 
-    constructor(payload: IUserPayload, secretKey: string, publicKey: string) {
-        this.payload = payload
-        this.secretKey = secretKey
-        this.publicKey = publicKey
-    }
+	access(): void {
+        if (this.accessToken === '' || this.accessToken === undefined) {
+            this.accessToken = jwt.sign(this.payload, this.secretKey, {
+                algorithm: 'HS256',
+                expiresIn: 60 * 5,
+                issuer: 'api.constructum.io'
+            })
+        }
+	}
 
-    access() {
-        jwt.sign()
-    }
-
-    refresh() {
-        jwt.sign()
-    }
-}
-
-export class TokenConfig {
-    private readonly issue: string
+	refresh(): void {
+        if (this.refreshToken === '' || this.refreshToken === undefined) {
+            jwt.sign(this.payload, this.secretKey, {
+                algorithm: 'HS256',
+                expiresIn: 60 * 60 * 12,
+                issuer: 'api.constructum.io'
+            })
+        }
+	}
 }
