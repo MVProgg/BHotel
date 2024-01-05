@@ -1,0 +1,7 @@
+{
+  "dependencies": {
+    "@trpc/server": "^10.45.0",
+    "pg": "^8.11.3",
+    "typescript": "^5.3.3"
+  }
+}
