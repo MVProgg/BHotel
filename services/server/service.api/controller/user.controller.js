@@ -4,6 +4,9 @@ import ApiError from '../exceptions/api-error.js';
 const userService = new UserService();
 
 class UserController {
+  /**
+   * @todo перенести в микросервис с аутентификацией
+  */
   async Login(req, res, next) {
     try {
       const { login, password } = req.body;

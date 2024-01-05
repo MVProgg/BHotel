@@ -2,6 +2,10 @@ import client from '../db.js';
 import ApiError from '../exceptions/api-error.js';
 
 class UserService {
+  /**
+   * @todo перенести в микросервис аутентификации
+   * @todo разделить на идентификацию и аутентификацию
+  */
   async login(login, password) {
     const response = await client.query(
       `select id_user, login, role, email from public.users where (login = $1 or email = $1) and password = $2`,
