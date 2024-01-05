@@ -7,12 +7,20 @@ export class Token {
     private accessToken: string = ''
     private refreshToken: string = ''
 
+    public get access(): string {
+        return this.accessToken
+    }
+
+    public get refresh(): string {
+        return this.refreshToken
+    }
+
 	constructor(payload: IUserPayload, secretKey: string) {
 		this.payload = payload
 		this.secretKey = secretKey
 	}
 
-	access(): void {
+	generateAccess(): void {
         if (this.accessToken === '' || this.accessToken === undefined) {
             this.accessToken = jwt.sign(this.payload, this.secretKey, {
                 algorithm: 'HS256',
@@ -22,7 +30,7 @@ export class Token {
         }
 	}
 
-	refresh(): void {
+	generateRefresh(): void {
         if (this.refreshToken === '' || this.refreshToken === undefined) {
             jwt.sign(this.payload, this.secretKey, {
                 algorithm: 'HS256',
