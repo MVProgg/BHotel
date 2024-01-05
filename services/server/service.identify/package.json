@@ -1,9 +1,32 @@
 {
+  "type": "module",
+  "author": "Alexei Wolkow",
+  "scripts": {
+    "build": "rimraf ./build && tsc",
+    "_message": "бля на линукс мы не переехали, поэтому дев работать будет онли на шинде",
+    "dev:node": "set NODE_ENV=development && node ./build/index.js",
+    "dev:start": "npx nodemon",
+    "dev": "npm run build && npm run dev:node",
+    "test": "jest --detectOpenHandles"
+  },
   "dependencies": {
+    "@bhotel/identify": "file:./../../../packages/package.identify",
+    "@jest/globals": "^29.7.0",
     "@trpc/client": "^10.45.0",
     "@trpc/server": "^10.45.0",
-    "@types/node": "^20.10.6",
+    "@tsed/logger": "^6.6.3",
+    "@types/dotenv": "^8.2.0",
+    "@types/jest": "^29.5.11",
+    "dotenv": "^16.3.1",
+    "jest": "^29.7.0",
+    "rimraf": "^5.0.5",
+    "ts-node": "^10.9.2",
     "typescript": "^5.3.3",
     "zod": "^3.22.4"
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.6",
+    "nodemon": "^3.0.2",
+    "ts-jest": "^29.1.1"
   }
 }

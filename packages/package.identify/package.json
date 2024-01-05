@@ -1,0 +1,20 @@
+{
+  "version": "1.0.0",
+  "name": "@bhotel/identify",
+  "main": "./build/index.js",
+  "types": "./build/index.d.ts",
+  "authors": [
+    "Alexei Wolkow"
+  ],
+  "scripts": {
+    "build": "tsc"
+  },
+  "dependencies": {
+    "@trpc/client": "^10.45.0",
+    "@trpc/server": "^10.45.0",
+    "@types/pg": "^8.10.9",
+    "pg": "^8.11.3",
+    "typescript": "^5.3.3",
+    "zod": "^3.22.4"
+  }
+}
