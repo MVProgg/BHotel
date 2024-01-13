@@ -1,5 +1,6 @@
 import client from '../db.js';
 import ApiError from '../exceptions/api-error.js';
+import dayjs from 'dayjs';
 
 class BookingService {
   //Add booking
@@ -14,6 +15,7 @@ class BookingService {
     countAdults,
     countChildren,
     amountPaid,
+    idRate,
     email = null,
   ) {
     let numberGuest = Math.floor(1000 + Math.random() * 9000);
@@ -26,8 +28,8 @@ class BookingService {
       numberGuest,
     ]);
     await client.query(
-      `insert into public.booking (id_guest, id_room, arrival_date, departure_date, count_adults, count_children, amount_paid)
-      values ($1, $2, $3, $4, $5, $6, $7)`,
+      `insert into public.booking (id_guest, id_room, arrival_date, departure_date, count_adults, count_children, amount_paid, id_rate)
+      values ($1, $2, $3, $4, $5, $6, $7, $8)`,
       [
         idGuest.rows[0].id_guest,
         idRoom,
@@ -36,6 +38,7 @@ class BookingService {
         countAdults,
         countChildren,
         amountPaid,
+        idRate,
       ],
     );
   }
@@ -64,6 +67,40 @@ class BookingService {
   async deleteBooking(idGuest) {
     await client.query(`delete from public.guests where id_guest = $1`, [idGuest]);
     await client.query(`delete from public.booking where id_guest = $1`, [idGuest]);
+  }
+
+  //change guest status
+  async checkAndChangeStatusGuest(data) {
+    for (let i = 0; i < data.length; i++) {
+      if (data[i].status_guest !== 'Выехал') {
+        if (dayjs(data[i].arrival_date) > dayjs()) {
+          await client.query(`update public.guests set id_status_guest = $1 where id_guest = $2`, [
+            'e753c074-fb74-40e3-82a7-10df78a69fa6',
+            data[i].id_guest,
+          ]);
+        }
+        if (dayjs(data[i].arrival_date) <= dayjs() && dayjs(data[i].departure_date) >= dayjs()) {
+          await client.query(`update public.guests set id_status_guest = $1 where id_guest = $2`, [
+            'c5418723-6d2a-420d-93e4-9d896cecf452',
+            data[i].id_guest,
+          ]);
+        }
+        if (dayjs(data[i].departure_date) <= dayjs()) {
+          await client.query(`update public.guests set id_status_guest = $1 where id_guest = $2`, [
+            '700b098c-cbd1-4616-9c3f-bc82ba24b281',
+            data[i].id_guest,
+          ]);
+        }
+      }
+    }
+  }
+
+  // make the guest check out
+  async makeGuestCheckOut(id_guest) {
+    await client.query(
+      `update public.guests set id_status_guest = 'de86a967-0104-4c67-80be-8b119d34d9e0' where id_guest = $1`,
+      [id_guest],
+    );
   }
 }
 

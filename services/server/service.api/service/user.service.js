@@ -11,7 +11,6 @@ class UserService {
       `select id_user, login, role, email from public.users where (login = $1 or email = $1) and password = $2`,
       [login, password],
     );
-    console.log(response.rows[0]);
     if (response.rows[0] === null || response.rows[0] === undefined) {
       throw ApiError.BadRequest('Неправильный логин или пароль');
     }
