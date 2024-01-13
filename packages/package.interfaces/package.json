@@ -1,0 +1,11 @@
+{
+  "version": "1.0.0",
+	"name": "@bhotel/interfaces",
+	"main": "./build/index.js",
+	"types": "./build/index.d.ts",
+	"author": "Alexei Wolkow",
+	"license": "UNLICENSED",
+	"dependencies": {
+		"typescript": "^5.3.3"
+	}
+}
