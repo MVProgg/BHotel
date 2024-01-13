@@ -1,5 +1,7 @@
 clear
 
+npm i -g yarn
+
 cd ./../packages
 
 echo "installing packages and dependencies"
