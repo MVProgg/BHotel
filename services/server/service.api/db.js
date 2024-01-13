@@ -6,9 +6,9 @@ dotenv.config();
  * @todo move to .env file
 */
 const USERNAME = 'postgres';
-const PASSWORD = 'root';
+const PASSWORD = 'postgres';
 const HOST = 'localhost';
-const DATABASE = 'BookingHotel';
+const DATABASE = 'Booking';
 
 /**
  * @todo rename this variable
